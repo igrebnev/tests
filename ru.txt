@@ -1,0 +1,2 @@
+vless://6d257a71-6d98-42d2-983a-34363b6dedcd@vr.nehtar.ru:443?encryption=none&security=tls&sni=vr.nehtar.ru&alpn=http%2F1.1&fp=random&type=ws&path=%2Fgateway%2Fv1%2Fws%2F791f9a4d19f715c2ffaedfbaf99d88bd#[374ms Россия RU 🇷🇺 @vlesstrojan]
+vless://6d257a71-6d98-42d2-983a-34363b6dedcd@d.nehtar.ru:443?encryption=none&security=tls&sni=d.nehtar.ru&alpn=http%2F1.1&fp=random&type=ws&path=%2Fgateway%2Fv1%2Fws%2Fed538a1fa54bd54fb14352a847675357#[380ms Россия RU 🇷🇺 @vlesstrojan]
