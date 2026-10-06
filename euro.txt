@@ -1,0 +1,1 @@
+hysteria2://7e68e32f-8015-4f37-9082-70e8b0b58043@13.124.41.194:443?insecure=1&sni=www.bing.com#[2340ms KR KR  @vlesstrojan]
