@@ -1,83 +1,24 @@
 {
-    "certificate": {
-        "store": "system"
-    },
-    "dns": {
-        "rules": [
-            {
-                "action": "predefined",
-                "answer": "localhost. IN A 127.0.0.1",
-                "domain": "localhost",
-                "query_type": "A",
-                "rcode": "NOERROR"
-            },
-            {
-                "action": "predefined",
-                "answer": "localhost. IN AAAA ::1",
-                "domain": "localhost",
-                "query_type": "AAAA",
-                "rcode": "NOERROR"
-            },
-            {
-                "action": "route",
-                "domain": [
-                    "russia.claudpath.com"
-                ],
-                "domain_keyword": [
-                ],
-                "domain_regex": [
-                ],
-                "domain_suffix": [
-                ],
-                "rule_set": [
-                ],
-                "server": "dns-direct"
-            }
-        ],
+       "dns": {
         "servers": [
-            {
-                "detour": "proxy",
-                "domain_resolver": "dns-local",
-                "server": "8.8.8.8",
-                "tag": "dns-remote",
-                "type": "tls"
-            },
-            {
-                "domain_resolver": "dns-local",
-                "tag": "dns-direct",
-                "type": "local"
-            },
-            {
-                "tag": "dns-local",
-                "type": "local"
-            }
+          {
+            "tag": "dns-direct",
+            "address": "1.1.1.1",
+            "detour": "direct"
+          }
         ]
-    },
-    "endpoints": [
-    ],
-    "experimental": {
-        "cache_file": {
-            "enabled": true,
-            "path": "nekobox-vXNoxTdypBLbxUvv0AMhEQ-core.db",
-            "store_fakeip": true,
-            "store_rdrc": true
-        },
-        "clash_api": {
-            "default_mode": ""
-        }
-    },
-    "inbounds": [
+      },
+      "inbounds": [
         {
-            "listen": "0.0.0.0",
-            "listen_port": 2080,
-            "set_system_proxy": false,
-            "tag": "mixed-in",
-            "type": "mixed"
+          "type": "tun",
+          "tag": "tun-in",
+          "interface_name": "tun0",
+          "inet4_address": "172.19.0.1/30",
+          "auto_route": true,
+          "strict_route": true,
+          "stack": "mixed"
         }
-    ],
-    "log": {
-        "level": "info"
-    },
+      ],
     "outbounds": [
         {
             "flow": "",
@@ -109,13 +50,9 @@
         {
             "tag": "direct",
             "type": "direct"
-        },
-        {
-            "tag": "block",
-            "type": "block"
         }
     ],
-      "route": {
+"route": {
     "rules": [
       {
         "domain": [
