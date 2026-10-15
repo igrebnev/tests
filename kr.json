@@ -1,59 +1,126 @@
 {
-  "dns": {
-    "servers": [
-      {
-        "tag": "dns-direct",
-        "address": "1.1.1.1",
-        "detour": "direct"
-      }
-    ]
-  },
-  "inbounds": [
-    {
-      "type": "tun",
-      "tag": "tun-in",
-      "interface_name": "tun0",
-      "inet4_address": "172.19.0.1/30",
-      "auto_route": true,
-      "strict_route": true,
-      "stack": "mixed"
-    }
-  ],
-  "outbounds": [
-    {
-      "type": "vless",
-      "tag": "proxy-ru",
-      "server": "СЮДА_ВСТАВИТЬ_АДРЕС",
-      "server_port": 443,
-      "uuid": "СЮДА_ВСТАВИТЬ_UUID",
-      "flow": "xtls-rprx-vision",
-      "network": "tcp",
-      "tls": {
-        "enabled": true,
-        "server_name": "СЮДА_ВСТАВИТЬ_SNI",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        },
-        "reality": {
-          "enabled": true,
-          "public_key": "СЮДА_ВСТАВИТЬ_PBK",
-          "short_id": "СЮДА_ВСТАВИТЬ_SID"
-        }
-      }
+    "certificate": {
+        "store": "system"
     },
-    {
-      "type": "direct",
-      "tag": "direct"
-    }
-  ],
-  "route": {
+    "dns": {
+        "rules": [
+            {
+                "action": "predefined",
+                "answer": "localhost. IN A 127.0.0.1",
+                "domain": "localhost",
+                "query_type": "A",
+                "rcode": "NOERROR"
+            },
+            {
+                "action": "predefined",
+                "answer": "localhost. IN AAAA ::1",
+                "domain": "localhost",
+                "query_type": "AAAA",
+                "rcode": "NOERROR"
+            },
+            {
+                "action": "route",
+                "domain": [
+                    "russia.claudpath.com"
+                ],
+                "domain_keyword": [
+                ],
+                "domain_regex": [
+                ],
+                "domain_suffix": [
+                ],
+                "rule_set": [
+                ],
+                "server": "dns-direct"
+            }
+        ],
+        "servers": [
+            {
+                "detour": "proxy",
+                "domain_resolver": "dns-local",
+                "server": "8.8.8.8",
+                "tag": "dns-remote",
+                "type": "tls"
+            },
+            {
+                "domain_resolver": "dns-local",
+                "tag": "dns-direct",
+                "type": "local"
+            },
+            {
+                "tag": "dns-local",
+                "type": "local"
+            }
+        ]
+    },
+    "endpoints": [
+    ],
+    "experimental": {
+        "cache_file": {
+            "enabled": true,
+            "path": "nekobox-vXNoxTdypBLbxUvv0AMhEQ-core.db",
+            "store_fakeip": true,
+            "store_rdrc": true
+        },
+        "clash_api": {
+            "default_mode": ""
+        }
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "listen_port": 2080,
+            "set_system_proxy": false,
+            "tag": "mixed-in",
+            "type": "mixed"
+        }
+    ],
+    "log": {
+        "level": "info"
+    },
+    "outbounds": [
+        {
+            "flow": "",
+            "packet_encoding": "xudp",
+            "server": "russia.claudpath.com",
+            "server_port": 8443,
+            "tag": "proxy",
+            "tls": {
+                "enabled": true,
+                "reality": {
+                    "enabled": true,
+                    "public_key": "i_er9yzoj2P2sk8xG47OYPllEOBj4M9aZoD_xrjXJTc",
+                    "short_id": "b00cbc41"
+                },
+                "server_name": "cdn3-96.devtopservizspb.ru",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "mode": "stream-one",
+                "path": "/xhttp",
+                "type": "xhttp"
+            },
+            "type": "vless",
+            "uuid": "4ccedc03-ff68-57c7-8db8-4e3279d3b28d"
+        },
+        {
+            "tag": "direct",
+            "type": "direct"
+        },
+        {
+            "tag": "block",
+            "type": "block"
+        }
+    ],
+      "route": {
     "rules": [
       {
         "domain": [
           "chatgpt.com",
           "openai.com",
-          "://google.com",
           "ai.google.dev"
         ],
         "domain_keyword": [
@@ -94,3 +161,4 @@
     "auto_detect_interface": true
   }
 }
+
