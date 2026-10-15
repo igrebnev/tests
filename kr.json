@@ -1,0 +1,96 @@
+{
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-direct",
+        "address": "1.1.1.1",
+        "detour": "direct"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "inet4_address": "172.19.0.1/30",
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "mixed"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "vless",
+      "tag": "proxy-ru",
+      "server": "СЮДА_ВСТАВИТЬ_АДРЕС",
+      "server_port": 443,
+      "uuid": "СЮДА_ВСТАВИТЬ_UUID",
+      "flow": "xtls-rprx-vision",
+      "network": "tcp",
+      "tls": {
+        "enabled": true,
+        "server_name": "СЮДА_ВСТАВИТЬ_SNI",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "СЮДА_ВСТАВИТЬ_PBK",
+          "short_id": "СЮДА_ВСТАВИТЬ_SID"
+        }
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "domain": [
+          "chatgpt.com",
+          "openai.com",
+          "://google.com",
+          "ai.google.dev"
+        ],
+        "domain_keyword": [
+          "openai",
+          "chatgpt",
+          "gemini"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "package_name": [
+          "org.telegram.messenger",
+          "ph.telegra.Telegraph"
+        ],
+        "domain_keyword": [
+          "telegram",
+          "t.me"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "geoip": [
+          "private"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "geosite": [
+          "ru"
+        ],
+        "geoip": [
+          "ru"
+        ],
+        "outbound": "proxy-ru"
+      }
+    ],
+    "final": "direct",
+    "auto_detect_interface": true
+  }
+}
