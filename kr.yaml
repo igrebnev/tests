@@ -1,0 +1,46 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: rule
+log-level: info
+
+proxies:
+  - name: "Russia-VPN"
+    type: vless
+    server: russia.claudpath.com
+    port: 8443
+    uuid: 4ccedc03-ff68-57c7-8db8-4e3279d3b28d
+    udp: true
+    tls: true
+    network: xhttp
+    xhttp-opts:
+      path: /xhttp
+      mode: stream-one
+      extra-headers:
+        Host: cdn3-96.devtopservizspb.ru
+    servername: cdn3-96.devtopservizspb.ru
+    reality-opts:
+      public-key: i_er9yzoj2P2sk8xG47OYPllEOBj4M9aZoD_xrjXJTc
+      short-id: b00cbc41
+    client-fingerprint: chrome
+
+rules:
+  - DOMAIN-KEYWORD,openai,DIRECT
+  - DOMAIN-KEYWORD,chatgpt,DIRECT
+  - DOMAIN-KEYWORD,gemini,DIRECT
+  - DOMAIN-SUFFIX,chatgpt.com,DIRECT
+  - DOMAIN-SUFFIX,openai.com,DIRECT
+  - DOMAIN-SUFFIX,google.com,DIRECT
+  - DOMAIN-SUFFIX,ai.google.dev,DIRECT
+  - DOMAIN-KEYWORD,telegram,DIRECT
+  - DOMAIN-SUFFIX,t.me,DIRECT
+  - IP-CIDR,91.108.4.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.8.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.12.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.16.0/22,DIRECT,no-resolve
+  - IP-CIDR,91.108.56.0/22,DIRECT,no-resolve
+  - IP-CIDR,149.154.160.0/20,DIRECT,no-resolve
+  - IP-CIDR,149.154.164.0/22,DIRECT,no-resolve
+  - IP-CIDR,149.154.172.0/22,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,ru,Russia-VPN
+  - MATCH,DIRECT
