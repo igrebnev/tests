@@ -7,7 +7,7 @@ log-level: info
 proxies:
   - name: "Russia-VPN"
     type: vless
-    server: russia.claudpath.com
+    server: ://claudpath.com
     port: 8443
     uuid: 4ccedc03-ff68-57c7-8db8-4e3279d3b28d
     udp: true
